@@ -1,0 +1,373 @@
+
+# Funciones de Manipulación de Cadenas en C
+## `<string.h>`: strcat(), strcpy(), strlen()
+
+---
+
+## 📋 Índice de la Presentación
+
+1. **Introducción a string.h**
+2. **strlen() - Longitud de cadenas**
+3. **strcpy() - Copia de cadenas**
+4. **strcat() - Concatenación de cadenas**
+5. **Ejemplos prácticos**
+6. **Consideraciones de seguridad**
+7. **Alternativas seguras**
+8. **Ejercicios y casos de uso**
+
+---
+
+## 1. Introducción a string.h
+
+### ¿Qué es string.h?
+- **Biblioteca estándar de C** para manipulación de cadenas
+- Contiene funciones para trabajar con arrays de caracteres terminados en `\0`
+- **Incluir**: `#include <string.h>`
+
+### Conceptos clave:
+- **Cadena (string)**: Array de caracteres terminado en `\0`
+- **Carácter nulo**: `\0` marca el final de la cadena
+- **Punteros**: Las funciones trabajan con direcciones de memoria
+
+---
+
+## 2. strlen() - Longitud de Cadenas
+
+### Sintaxis
+```c
+size_t strlen(const char *str);
+```
+
+### Características:
+- **Propósito**: Calcular la longitud de una cadena
+- **Retorna**: Número de caracteres (sin contar `\0`)
+- **Tipo de retorno**: `size_t` (entero sin signo)
+- **Parámetro**: `const char *` (no modifica la cadena)
+
+### Ejemplo básico:
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char cadena[] = "Hola Mundo";
+    size_t longitud = strlen(cadena);
+    
+    printf("La cadena '%s' tiene %zu caracteres\n", cadena, longitud);
+    // Salida: La cadena 'Hola Mundo' tiene 10 caracteres
+    
+    return 0;
+}
+```
+
+### Puntos importantes:
+- **No cuenta** el carácter nulo `\0`
+- **Eficiencia**: O(n) - recorre toda la cadena
+- **Seguridad**: La cadena debe estar terminada en `\0`
+
+---
+
+## 3. strcpy() - Copia de Cadenas
+
+### Sintaxis
+```c
+char *strcpy(char *destino, const char *origen);
+```
+
+### Características:
+- **Propósito**: Copiar una cadena a otra
+- **Retorna**: Puntero al destino
+- **Modifica**: La cadena destino
+- **No modifica**: La cadena origen (`const`)
+
+### Ejemplo básico:
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char origen[] = "Programación";
+    char destino[20];  // Suficiente espacio
+    
+    strcpy(destino, origen);
+    
+    printf("Origen: %s\n", origen);
+    printf("Destino: %s\n", destino);
+    
+    return 0;
+}
+```
+
+### Funcionamiento interno:
+1. Copia carácter por carácter desde origen a destino
+2. Incluye el carácter nulo `\0` al final
+3. Sobrescribe completamente el contenido del destino
+
+### ⚠️ Precauciones:
+- **Buffer overflow**: Destino debe tener suficiente espacio
+- **No verifica límites**: Puede causar errores graves
+- **Cadenas superpuestas**: Comportamiento indefinido
+
+---
+
+## 4. strcat() - Concatenación de Cadenas
+
+### Sintaxis
+```c
+char *strcat(char *destino, const char *origen);
+```
+
+### Características:
+- **Propósito**: Añadir una cadena al final de otra
+- **Retorna**: Puntero al destino
+- **Modifica**: Solo la cadena destino
+- **Busca**: El final de destino antes de concatenar
+
+### Ejemplo básico:
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char saludo[50] = "Hola ";     // Espacio suficiente
+    char nombre[] = "María";
+    
+    strcat(saludo, nombre);
+    strcat(saludo, "!");
+    
+    printf("Resultado: %s\n", saludo);
+    // Salida: Resultado: Hola María!
+    
+    return 0;
+}
+```
+
+### Funcionamiento interno:
+1. Encuentra el final de la cadena destino (busca `\0`)
+2. Copia la cadena origen a partir de esa posición
+3. Añade el nuevo carácter nulo al final
+
+### ⚠️ Precauciones:
+- **Espacio suficiente**: Destino debe poder contener ambas cadenas
+- **Inicialización**: Destino debe ser una cadena válida
+- **Eficiencia**: O(n+m) donde n y m son las longitudes
+
+---
+
+## 5. Ejemplos Prácticos
+
+### Ejemplo 1: Constructor de nombres completos
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char nombre[20] = "Juan";
+    char apellido[] = "Pérez";
+    char nombre_completo[50] = "";
+    
+    // Construir nombre completo
+    strcpy(nombre_completo, nombre);
+    strcat(nombre_completo, " ");
+    strcat(nombre_completo, apellido);
+    
+    printf("Nombre completo: %s\n", nombre_completo);
+    printf("Longitud total: %zu caracteres\n", strlen(nombre_completo));
+    
+    return 0;
+}
+```
+
+### Ejemplo 2: Análisis de cadenas
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char frase[] = "Aprendiendo C es divertido";
+    char copia[100];
+    
+    printf("Frase original: %s\n", frase);
+    printf("Longitud: %zu caracteres\n", strlen(frase));
+    
+    // Hacer una copia
+    strcpy(copia, frase);
+    
+    // Añadir más texto
+    strcat(copia, " y útil");
+    
+    printf("Frase modificada: %s\n", copia);
+    printf("Nueva longitud: %zu caracteres\n", strlen(copia));
+    
+    return 0;
+}
+```
+
+### Ejemplo 3: Validación de entrada
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char entrada[100];
+    char mensaje[150] = "Usuario ingresó: ";
+    
+    printf("Ingrese su nombre: ");
+    fgets(entrada, sizeof(entrada), stdin);
+    
+    // Remover el salto de línea si existe
+    size_t len = strlen(entrada);
+    if (len > 0 && entrada[len-1] == '\n') {
+        entrada[len-1] = '\0';
+    }
+    
+    // Validar longitud
+    if (strlen(entrada) > 0) {
+        strcat(mensaje, entrada);
+        printf("%s\n", mensaje);
+    } else {
+        printf("Entrada vacía\n");
+    }
+    
+    return 0;
+}
+```
+
+---
+
+## 6. Consideraciones de Seguridad
+
+### Problemas comunes:
+
+#### Buffer Overflow
+```c
+// ❌ PELIGROSO
+char pequeno[5];
+strcpy(pequeno, "Esta cadena es muy larga");  // Desbordamiento!
+```
+
+#### Cadenas no inicializadas
+```c
+// ❌ PELIGROSO
+char destino[20];  // Contenido impredecible
+strcat(destino, "texto");  // Comportamiento indefinido
+```
+
+#### Cadenas superpuestas
+```c
+// ❌ PELIGROSO
+char cadena[] = "Hola";
+strcpy(cadena + 2, cadena);  // Comportamiento indefinido
+```
+
+### Buenas prácticas:
+
+#### Verificar tamaños
+```c
+// ✅ SEGURO
+char destino[50];
+char origen[] = "Texto seguro";
+
+if (strlen(origen) < sizeof(destino)) {
+    strcpy(destino, origen);
+}
+```
+
+#### Inicializar destinos
+```c
+// ✅ SEGURO
+char destino[50] = "";  // Inicializar vacío para strcat
+strcat(destino, "Texto");
+```
+
+---
+
+## 7. Alternativas Seguras
+
+### Funciones más seguras (C11):
+
+#### strcpy_s() (Windows/C11)
+```c
+// Más seguro que strcpy
+errno_t strcpy_s(char *destino, size_t tam_destino, const char *origen);
+```
+
+#### strncpy() - Versión con límite
+```c
+char destino[20];
+strncpy(destino, origen, sizeof(destino) - 1);
+destino[sizeof(destino) - 1] = '\0';  // Asegurar terminación
+```
+
+#### strncat() - Concatenación con límite
+```c
+char destino[50] = "Hola ";
+strncat(destino, origen, sizeof(destino) - strlen(destino) - 1);
+```
+
+### Implementación manual segura:
+```c
+// Función personalizada segura
+int strcpy_seguro(char *destino, const char *origen, size_t tam_max) {
+    if (!destino || !origen || tam_max == 0) {
+        return -1;  // Error
+    }
+    
+    size_t i;
+    for (i = 0; i < tam_max - 1 && origen[i] != '\0'; i++) {
+        destino[i] = origen[i];
+    }
+    destino[i] = '\0';
+    
+    return 0;  // Éxito
+}
+```
+
+---
+
+## 8. Ejercicios Propuestos
+
+### Ejercicio 1: Invertir cadenas
+Crear una función que use estas funciones para invertir una cadena.
+
+### Ejercicio 2: Contador de palabras
+Usar `strlen()` y otras funciones para contar palabras en una frase.
+
+### Ejercicio 3: Constructor de rutas
+Usar `strcat()` para construir rutas de archivos de forma segura.
+
+### Ejercicio 4: Validador de entrada
+Combinar las tres funciones para validar y procesar entrada del usuario.
+
+---
+
+## 📝 Resumen Final
+
+| Función | Propósito | Retorna | Modifica destino | Seguridad |
+|---------|-----------|---------|------------------|-----------|
+| `strlen()` | Medir longitud | `size_t` | No | ✅ Segura |
+| `strcpy()` | Copiar cadena | `char*` | Sí | ⚠️ Cuidado |
+| `strcat()` | Concatenar | `char*` | Sí | ⚠️ Cuidado |
+
+### Puntos clave para recordar:
+1. **Siempre verificar tamaños** antes de copiar/concatenar
+2. **Inicializar destinos** apropiadamente
+3. **Considerar alternativas seguras** para aplicaciones críticas
+4. **Entender el comportamiento** de cada función
+5. **Practicar con ejemplos** variados
+
+---
+
+## ❓ Preguntas Frecuentes
+
+**P: ¿Por qué strlen() no cuenta el '\0'?**
+R: Porque el '\0' es un marcador técnico, no parte del contenido visible.
+
+**P: ¿Qué pasa si el destino es muy pequeño?**
+R: Buffer overflow - comportamiento indefinido y potencialmente peligroso.
+
+**P: ¿Puedo usar estas funciones con char*?**
+R: Sí, pero asegúrate de que apunten a memoria válida y modificable.
+
+**P: ¿Hay versiones seguras?**
+R: Sí: `strcpy_s()`, `strcat_s()`, `strncpy()`, `strncat()`
