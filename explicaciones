@@ -1,0 +1,48 @@
+if se usa para toma de deciciones y se ejecuta si la condicion es verdadera
+if-else toma cierta decicion si esta no se cumple hace otra condicion
+if-else if ejecuta codigo si se cumple la condicion si no cumple una segunda condicion
+se pueden anidar varios if-else-if
+condicionales a recordar = == && <> <= >= != ||
+variable
+condicional (a evaluar)
+    bloque de codigo
+return 0
+se pueden combinar varias condiciones con &&(AND), ||(OR), !(NOT)
+
+WHILE
+sirve para hacer ciclos
+5
+4
+31
+22
+13
+
+While
+incio de secion tienes 5 oportunidades para validar
+programa con 3 fun del usuario reciban un parametro regresen un resultado
+
+Do while
+ejecuta el codigo una ves y despues ejecuta el bucle
+Switch
+si en el switch quitas el break corre las siguientes opciones
+tambien esta la opcion default por si se escribe una opcion que no este en el menu
+
+Arreglos
+se declara asi
+int arreglo[5];
+se empieza desde 0 hasta 4 (en este caso)
+arreglo[0]=3;
+arreglo[1]=18;
+arreglo[2]=-20000;
+arreglo[3]=1;
+arreglo[4]=22500;
+
+arreglos bidimencionales
+ _ _ _ _ _ _
+|0|1|2|3|4|5|
+| | | | | | |
+ - - - - - -
+
+int arreglo [2][6]; //Arreglo bidimencional primer0[2] renglones segundo[6] columnas
+[ | | | | | ]
+[ | | | | | ]
