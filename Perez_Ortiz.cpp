@@ -1,25 +1,27 @@
 //Autor: Perez Ortiz Luis Angel
-//1. guardar en arreglo cuantas palabras
-//2.guardar en otro arreglo la palabra y cuantas veces aparece se arreglo
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-int main()
-{
-	FILE *archivo;
+int main() {
+    char nombre[50], apellido[50];
+    char mensaje[200];
 
-	archivo = fopen("carta.txt", "r");
-	if(archivo == NULL) {
-		printf("Error: archivo no encontrado X_X!");
-	}
-	char info_carta[100];
-	while (fgets(info_carta, 100, archivo))
-	{
-		
-	}
+    printf("Ingresa tu nombre: \n");
+    scanf("%s", nombre);
 
-	fclose(archivo);
+    printf("Ingresa tu apellido: \n");
+    scanf("%s", apellido);
 
-	return 0;
+    // Construimos el mensaje
+    strcpy(mensaje, "Bienvenido, ");
+    strcat(mensaje, nombre);
+    strcat(mensaje, " ");
+    strcat(mensaje, apellido);
+    strcat(mensaje, "!");
+
+    // Mostrar el mensaje y su longitud
+    printf("\n%s\n", mensaje);
+    printf("Longitud del mensaje: %lu caracteres\n", strlen(mensaje));
+
+    return 0;
 }

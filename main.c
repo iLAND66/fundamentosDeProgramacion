@@ -714,3 +714,17 @@ int **arr_din, i, j, n, m=0;
 	}
 
 	free(arr_din);
+
+FILE *archivo;
+
+archivo = fopen("carta.txt", "r");
+if(archivo == NULL) {
+    printf("Error: archivo no encontrado X_X!");
+}
+char info_carta[100];
+while (fgets(info_carta, 100, archivo))
+{
+
+}
+
+fclose(archivo);
