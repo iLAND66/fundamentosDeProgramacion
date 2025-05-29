@@ -1,6 +1,57 @@
-hoy en el dia del politectino, el director no nos dio un concierto.
-como si fue hace un anio
-6
-7
-8
-9 3 3  444  3 3 1 1
+char myStr[20] = "Hello";
+strncat(myStr, " World!", 5);
+printf("%s", myStr);
+
+strncat(void * destination, void * source, size_t size);
+
+char str1[] = "Hello World!";
+char str2[30];
+strcpy(str2, str1);
+printf("%s\n", str1);
+printf("%s\n", str2);
+
+strcpy(char * destination, char * source);
+
+char myStr[20] = "Hello World";
+printf("%zu\n", strlen(myStr));
+printf("%zu\n", sizeof(myStr));
+
+strlen(char * str);
+
+
+
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(void) {
+    // Write C code here
+    char palabras[100];
+    char palabra[100];
+    char comparacion[30];
+    int n=0;
+    while (n<9)
+    {
+        printf("Ingresa una palabra;\n");
+        scanf("%s", palabra);
+        strcpy(palabra, comparacion);
+        //strlen(comparacion * str);
+        if(strlen(comparacion) <= 19)
+        {
+            printf("la palabra %s tiene un maximo de 19 caracteres", comparacion);
+        }
+        else
+        {
+            printf("La palabra tiene mas de 19 caracteres");
+        }
+        strncat(palabras, palabra, 30);
+        //strncat(palabras, ", ", 3);
+        n++;
+    }
+    printf("%s", palabras);
+    
+
+    return 0;
+}
