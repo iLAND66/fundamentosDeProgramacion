@@ -1,9 +1,11 @@
 // Autor: Luis Angel Perez Ortiz
 //strcpy, strlen, strcat --> exponer
-#include "stdio.h"
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
 int main (void){
-    int j;
-    int i;
+    int j, i = 0, r=0, t, numero;
     for (i=0;i<1; i++)
     {
         printf("Hola\n");
@@ -12,13 +14,8 @@ int main (void){
 		    printf("%d", &j);
 		}
     }
-    return 0;
-}
 
-#include <stdio.h>
-int main (void)
-{
-    int i = 0, r=0, t, numero;
+
     printf("que numero\n");
     scanf("%d", &numero);
     printf("Hasta que numero");
@@ -28,13 +25,8 @@ int main (void)
         r = numero*i;
         printf("%d * %d = %d\n", numero, t, r);
     }
-    return 0;
-}
 
-#include <stdio.h>
-int main (void)
-{
-    int i = 0;
+
     for (i=1;i<10;i++)
     {
         if (i==5)
@@ -46,14 +38,9 @@ int main (void)
             printf("%i \t", i);
         }
     }
-    return 0;
-}
 
-// Autor: Luis Angel Perez Ortiz
 
-#include <stdio.h>
-int main (void)
-{
+
     int a, b, c, lim;
     printf("Hasta cual?\n");
     scanf("%d", &lim);
@@ -66,14 +53,7 @@ int main (void)
             printf("%d = %d \n", b, c);
         }
     }
-    return 0;
-}
 
-// Autor: Luis Angel Perez Ortiz
-
-#include <stdio.h>
-int main (void)
-{
     int num1=0, num2=0, num3=0;
     printf("Dame un numero \n");
     scanf("%d", &num1);
@@ -87,14 +67,8 @@ int main (void)
         printf("los numeros estan en orden decreciente");
     else
         printf("los numeros estan en orden aleatorio");
-    return 0;
-}
 
-// Autor: Luis Angel Perez Ortiz
 
-#include <stdio.h>
-int main (void)
-{
     int lado1=0, lado2=0, lado3=0;
     printf("Escribe el valor de el primer lado \n");
     scanf("%d", &lado1);
@@ -111,15 +85,9 @@ int main (void)
             printf("Es un triangulo escaleno");
         else
             printf("los valores ingresados no corresponden a un triangulo");
-    return 0;
-}
 
-// Autor: Luis Angel Perez Ortiz
 
-#include <stdio.h>
-int main (void)
-{
-    int i = 0, j = 0, N = 0;
+    int N = 0;
     printf("Escribe el numero\n");
     scanf("%d", &N);
     if (N > 0)
@@ -136,14 +104,10 @@ int main (void)
     else if (N == 0)
         printf("El numero es igual a 0");
     else
-        printf("El numero es negativo");
-    return 0;
-}//Correguir
+        printf("El numero es negativo");//corregir
 
-#include <stdio.h>
-int main (void)
-{
-    int a, i, j, k;
+
+    int k;
     char symbol[] = "*";
     printf("Da un numero entre 1 y 19\n");
     scanf("%d", &a);
@@ -167,13 +131,8 @@ int main (void)
     }
     else
         printf("El numero ingresado no cumple con las condiciones");
-    return 0;
-}
 
-#include <stdio.h>
-int main (void)
-{
-    int i;
+
     printf("Ingrese la nota del estudiante\n");
     scanf("%d", &i);
     if (i >= 90)
@@ -197,24 +156,16 @@ int main (void)
         printf("Adulto");
     else
         printf("Adulto mayor");
-    return 0;
-}
 
-#include <stdio.h>
-int main (void)
-{
+
     int contador = 1;
     while (contador < 4)
     {
         printf("\t%i", contador);
         contador++;
     }
-    return 33;
-}
 
-#include <stdio.h>
-int main (void)
-{
+
     int contador1 = 5;
     int contador2 = 1;
     while (contador1 > 0)
@@ -227,28 +178,16 @@ int main (void)
             contador1--;
         }
     }
-    return 33;
-}
 
-#include <stdio.h>
-int main (void)
-{
-    int contador1 = 5;
-    int contador2 = 1;
+
     while (contador1 > 0)
     {
         printf("\t%i\t%i\n", contador1, contador2);
         contador2++;
         contador1--;
     }
-    return 33;
-}
 
-#include <stdio.h>
-int main (void)
-{
-    int contador1 = 5, contador2 = 1;
-    int a;
+
     while (contador1 > 0)
     {
         printf("%i\t", contador1);
@@ -261,13 +200,8 @@ int main (void)
         else
             printf("\n");
     }
-    return 33;
-}
 
-#include <stdio.h>
-#include <iostream>
-int main (void)
-{
+
     int opcion;
     printf("Programa X\n1. caso a\n2. caso b\n3. caso c\n4. salir\nQue opcion quieres?\n");
     scanf("%d", &opcion);
@@ -301,20 +235,14 @@ int main (void)
         printf("Programa X\n1. caso a\n2. caso b\n3. caso c\n4. salir\nQue opcion quieres?\n");
         scanf("%d", &opcion);
     }
-    return 33;
-}
 
-#include <stdio.h>
-#include <string.h>
 
-int main (void)
-{
     char usuario[10];
     char contraseña[10];
     char admin[] = "admin";
     char adminContras[] = "1111";
     int intentos = 1;
-    int diasTrabajados, a;
+    int diasTrabajados;
     int salario = 0;
     printf("Inicia de sesion\n");
     printf("Usuario\n");
@@ -354,11 +282,8 @@ int main (void)
         }
     }
 
-    return 33;
-}
 
-#include <stdio.h>
-#include <iostream>
+
 
 int funcionSuma (int num1,int num2);
 int funcionResta (int num1,int num2);
@@ -389,9 +314,8 @@ float funcionDivicion(float num1, float num2)
     }
 }
 
-int main (void)
-{
-    int opcion = 0, num1 = 0, num2 = 0;
+
+
     printf("Programa Opereaciones\n"
            "1. Suma\n"
            "2. Resta\n"
@@ -443,10 +367,8 @@ int main (void)
            "Que opcion quieres?\n");
         scanf("%d", &opcion);
     }
-    return 33;
-}
-int main(void)
-{
+
+
     int opcion = 3;
 
     switch (opcion)
@@ -728,3 +650,45 @@ while (fgets(info_carta, 100, archivo))
 }
 
 fclose(archivo);
+
+FILE *archivo;
+archivo = fopen("carta.txt", "r");
+
+if (archivo == NULL)
+{
+    printf("Error: archivo no encontrado X_X!\n");
+    return 1;
+}
+
+char info_carta[1000];
+char delimitadorsignos[] = ",;:. \n!\"'";
+char palabras[1000];
+int contador = 0;
+
+while (fgets(info_carta, sizeof(info_carta), archivo)) {
+    char *delimitador = strtok(info_carta, delimitadorsignos);
+    while (delimitador != NULL) {
+        //strcpy(info_carta, palabras);
+        contador++;
+        delimitador = strtok(NULL, delimitadorsignos);
+    }
+}
+printf("Numero de palabras: %d\n", contador);
+// int *repDePalabras;
+// repDePalabras = (int *) calloc(contador, sizeof(int));
+// if (repDePalabras == NULL)
+// {
+// 	printf("¡No se pudo reservar memoria!\n");
+// }
+// else
+// {
+// 	if (true)
+// 	{
+// 		printf("");
+// 	}
+// }
+
+fclose(archivo);
+
+    return 0;
+}
