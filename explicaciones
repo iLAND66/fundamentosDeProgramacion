@@ -46,3 +46,26 @@ arreglos bidimencionales
 int arreglo [2][6]; //Arreglo bidimencional primer0[2] renglones segundo[6] columnas
 [ | | | | | ]
 [ | | | | | ]
+
+-------------------------------manejo de archivos------------------------------------------------
+Archivos binarios - .exe, .dll
+Archivos de texto - .txt, .csv, .dat
+r -> read - lectura
+w -> write - escritura
+a -> append - anexar texto
+usar "_" en lugar de " " ejemplo "mi agenda.txt" -> "mi_agenda.txt"
+fopen(,) - file open
+rewind() - rebobinar
+FILE *apu_arch;
+ apu_arch = fopen("File name", "Mode")
+Para poder abrir un archivo necesitamos:
+-Ruta correcta
+-Permisos
+Todos los archivos de teto terminan con un EOF que no se ve.
+EOF -> End Of File
+fscanf
+fgets
+fgetline
+fputs
+fputc
+fclose
