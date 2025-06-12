@@ -40,12 +40,12 @@ int main(void)
 
     if(archivo != NULL)
     {
-        fputs("Estimado director Gilberto Alejandro Garcia Guerra, buenos dias.\n\n"
+        fputs("Estimado director Gilberto Alejandro Garcia Guerra, buenos dias.\n"
               "El motivo de la presente es para solicitar la revalidacion y/o equivalencia de las materias que "
               "curse en mi antigua unidad academica. Durante este semestre, realice un cambio de carrera, "
               "pasando de la Unidad Profesional Interdisciplinaria de Energia y Movilidad (UPIEM), donde cursaba"
               " la carrera de Ingenieria en Sistemas Energeticos y Redes Inteligentes, a la Escuela Superior de"
-              " Computo (ESCOM), en la cerrera de Ingenieria en Inteligencia Artificial.\n\n"
+              " Computo (ESCOM), en la cerrera de Ingenieria en Inteligencia Artificial.\n"
               "Lamentablemente, al realizar el cambio, no se me otorgo la revalidacion de algunas materias "
               "que ya habia cursado. En UPIEM curse tres semestres, mientras que en ESCOM estoy iniciando "
               "con el primero. A continuacion, le proporciono una tabla con las materias que solicito revalidar,"
@@ -126,7 +126,7 @@ void imprimir(void)
     struct nodo *temporal = superior;
     while (temporal != NULL)
     {
-        printf("|%-20s|%-20d\n", temporal->detalleDePalabra.palabra, temporal->detalleDePalabra.frecuencia);
+        printf("|%-20s|%-20d|\n", temporal->detalleDePalabra.palabra, temporal->detalleDePalabra.frecuencia);
         temporal = temporal->siguiente;
     }
     printf("+%s+%s+\n", guiones, guiones);
