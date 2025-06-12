@@ -3,19 +3,39 @@
 ( o.o )
  > ^ <
  */
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+//struc con palabra y su frecuencia
+#define MAX_LEN_PALABRA 23
+
+struct DetalleDePalabra
+{
+    char palabra[MAX_LEN_PALABRA];
+    int frecuencia;
+};
+//nodo para crear la pila con detalle de palabra y puntero a otro nodo
+struct nodo
+{
+    struct DetalleDePalabra detalleDePalabra;
+    struct nodo *siguiente;
+};
+
+void agregar(struct DetalleDePalabra detalleDePalabra);
+void agregarPalabra(char palabra[MAX_LEN_PALABRA]);
+void imprimir(void);
+
+struct nodo *superior = NULL;
 
 int main(void)
 {
     FILE *archivo;
-
     archivo = fopen("entrada.txt", "w");
 
     char contenido[10000];
-    char signos[] = {" ,./()"};
+    char signos[] = ",./() \n";
     char palabra1[100]={};
-    char palabra2[100];
     int i, contador= 0;
 
     if(archivo != NULL)
@@ -35,23 +55,81 @@ int main(void)
     else
     {
         printf("Archivo no encontrado X_X");
+        return 1;
     }
 
-    fopen("entrada.txt", "r");
-    while (fgets(contenido, 10000, archivo))
+    archivo = fopen("entrada.txt", "r");
+    if (archivo != NULL)
     {
-        char *delimitador = strtok(contenido, signos);
-        strcpy(palabra1, contenido);
-        while (delimitador != NULL)
+        while(fgets(contenido, 10000, archivo))
         {
-            do
-            {
-                contador++;
-            }
-            while (delimitador = strtok(NULL, delimitador));
-            // delimitador = strtok(NULL, delimitador);
+
         }
-        printf("%s: %i\n", palabra1, contador);
-        palabra1[14]={};
     }
+    else
+    {
+        printf("Archivo no encontrado X_X");
+        return 1;
+    }
+    char *token = strtok(contenido, signos);
+    while (token != NULL)
+    {
+        agregarPalabra(token);
+        token = strtok(NULL, signos);
+    }
+    imprimir();
 }
+
+//agregar la pila(push) agrega un struct
+void agregar(struct DetalleDePalabra detalleDePalabra)
+{
+    //reservamor memoria
+    struct nodo *nuevoNodo = static_cast<struct nodo*>(malloc(sizeof(struct nodo)));
+    //le ponemos el dato
+    nuevoNodo->detalleDePalabra = detalleDePalabra;
+    //el nuevo ndo es el superior, y su siguiente es el que era antes superior
+    nuevoNodo->siguiente = superior;
+    superior = nuevoNodo;
+}
+//insertar palabra en la pila en caso de que no exista
+void agregarPalabra(char palabra[MAX_LEN_PALABRA])
+{
+    struct nodo *temporal = superior;
+    while (temporal != NULL)
+    {
+        //comprobar si la encontramos
+        int resultadoDeComparacion = strcasecmp(temporal->detalleDePalabra.palabra, palabra);
+        //si es 0 entonces si
+        if (resultadoDeComparacion == 0)
+        {
+            //aumentar frecuencia y terminar ciclo y funcion
+            temporal->detalleDePalabra.frecuencia++;
+            return;
+        }
+        temporal = temporal->siguiente;
+    }
+    //si no encontramos nadota agregamos una nueva
+    struct DetalleDePalabra detalleDePalabra;
+    strcpy(detalleDePalabra.palabra, palabra);
+    detalleDePalabra.frecuencia = 1; //la primera vez es 1
+    agregar(detalleDePalabra);
+}
+
+//imprimir resultados del conteo
+void imprimir(void)
+{
+    char guiones[] = "--------------------";
+    printf("+%s+%s+\n", guiones, guiones);
+    printf("|%-20s|%-20s|\n", "PALABRA", "FRECUENCIA");
+    printf("+%s+%s+\n", guiones, guiones);
+
+    struct nodo *temporal = superior;
+    while (temporal != NULL)
+    {
+        printf("|%-20s|%-20d\n", temporal->detalleDePalabra.palabra, temporal->detalleDePalabra.frecuencia);
+        temporal = temporal->siguiente;
+    }
+    printf("+%s+%s+\n", guiones, guiones);
+}
+
+
