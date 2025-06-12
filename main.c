@@ -690,5 +690,249 @@ printf("Numero de palabras: %d\n", contador);
 
 fclose(archivo);
 
+FILE *apu_archivo;
+apu_archivo = fopen ("archivo02.txt","w");
+
+//Genera cadena compuesta
+int entero=15;
+float decimales = 5.45;
+char caracter='T';
+char cadenaX[] = {"Hola mundo"};
+char cad_dest[30]={};
+
+printf("\n Cadena compuesta:");
+//cadena especial
+sprintf(cad_dest, "%d - %f \t %c \n %s",entero, decimales, caracter, cadenaX);
+
+
+//Ahora escribe a disco
+if (apu_archivo!=NULL)
+{
+    fputs ("Ejemplo de escritura a disco 3\n",apu_archivo);
+    fputs ("Ejemplo de escritura a disco 4\n",apu_archivo);
+    fputs(cad_dest, apu_archivo);
+    fclose (apu_archivo);
+}
+else
+    printf("\nNo pudo abrir el archivo");
+
+//Ahora lee de disco
+char cad [100];
+apu_archivo = fopen ("archivo02.txt","r");
+if (apu_archivo!=NULL)
+{
+    if ( fgets (cad, 100 , apu_archivo) != NULL )
+    {
+        printf("\n");
+        //printf pero solo para cadenas
+        puts (cad);
+    }
+    fclose (apu_archivo);
+}
+else
+    printf("\nNo pudo abrir el archivo");
+
+
+printf("\n\n\n");
+//Ahora lee a disco con fgetc
+int c;
+int n = 0;
+apu_archivo = fopen ("archivo02.txt","r");
+if (apu_archivo != NULL)
+{
+    do
+    {
+        c = fgetc (apu_archivo); //fgetc trae cadena por cadena completa del apuntador hasta el EOF
+        printf("%c",c);
+    } while (c != EOF); //End Of File
+}
+
+
+//Separa registros
+printf("\n\n\n");
+rewind(apu_archivo);
+if (apu_archivo != NULL)
+{
+    do
+    {
+        c = fgetc (apu_archivo);
+        printf("%c",c);
+    } while (c != EOF);
+}
+fclose (apu_archivo);
+
+
     return 0;
+}
+#include <stdio.h>
+void lectura(FILE* apuntador, char* cadena, char* error);
+void agregar(FILE* apuntador, char* textoAgegado, char* error);
+
+int main(void)
+{
+	char errorArchivo[100] = "No se pudo abrir el archivo X_X";
+	char firma[100] = "Att: Perez Ortiz Luis Angel";
+	char contenido[1000];
+	char respuesta[1000] = "Su renuncia a sido aceptada. Pronto recibira mas informacion";
+
+	FILE *cartaDeRenuncia;
+	cartaDeRenuncia = fopen("renuncia.txt", "w");
+
+	if (cartaDeRenuncia != nullptr)
+	{
+		fputs("Por diferentes inconformidades en mi trabajo presento mi carta de renuncia.", cartaDeRenuncia);
+		fclose(cartaDeRenuncia);
+	}
+	else
+	{
+		puts(errorArchivo);
+	}
+
+	// cartaDeRenuncia = fopen("renuncia.txt", "a");
+	// if (cartaDeRenuncia != nullptr)
+	// {
+	// 	fprintf(cartaDeRenuncia, firma);
+	// 	fclose(cartaDeRenuncia);
+	// }
+	// else
+	// {
+	// 	puts(errorArchivo);
+	// }
+	agregar(cartaDeRenuncia, firma, errorArchivo);
+
+	// cartaDeRenuncia = fopen("renuncia.txt", "r");
+	// if (cartaDeRenuncia != nullptr)
+	// {
+	// 	while (fgets(contenido, sizeof(contenido), cartaDeRenuncia))
+	// 	{
+	// 		puts(contenido);
+	// 	}
+	// 	fclose(cartaDeRenuncia);
+	// }
+	// else
+	// {
+	// 	puts(errorArchivo);
+	// }
+	lectura(cartaDeRenuncia, contenido, errorArchivo);
+
+	// cartaDeRenuncia = fopen("renuncia.txt", "a");
+	// if (cartaDeRenuncia != nullptr)
+	// {
+	// 	fputs(respuesta, cartaDeRenuncia);
+	// 	fclose(cartaDeRenuncia);
+	// }
+	// else
+	// {
+	// 	puts(errorArchivo);
+	// }
+	agregar(cartaDeRenuncia, respuesta, errorArchivo);
+	// cartaDeRenuncia = fopen("renuncia.txt", "r");
+	// if (cartaDeRenuncia != nullptr)
+	// {
+	// 	while (fgets(contenido, sizeof(contenido), cartaDeRenuncia))
+	// 	{
+	// 		puts(contenido);
+	// 	}
+	// 	fclose(cartaDeRenuncia);
+	// }
+	// else
+	// {
+	// 	puts(errorArchivo);
+	// }
+	lectura(cartaDeRenuncia, contenido, errorArchivo);
+
+	return 0;
+}
+
+void lectura(FILE* apuntador, char* cadena, char* error)
+{
+	apuntador = fopen("renuncia.txt", "r");
+	if (apuntador != nullptr)
+	{
+		while (fgets(cadena, sizeof(cadena), apuntador))
+		{
+			puts(cadena);
+		}
+		fclose(apuntador);
+	}
+	else
+	{
+		puts(error);
+	}
+	printf("%s", cadena);
+}
+void agregar(FILE* apuntador, char* textoAgegado, char* error)
+{
+	apuntador = fopen("renuncia.txt", "a");
+	if (apuntador != nullptr)
+	{
+		fputs(textoAgegado, apuntador);
+		fclose(apuntador);
+	}
+	else
+	{
+		puts(error);
+	}
+}
+#include <stdio.h>
+void lectura(FILE* apuntador, char* cadena, char* error);
+void agregar(FILE* apuntador, char* textoAgegado, char* error);
+
+int main(void)
+{
+ char errorArchivo[100] = "No se pudo abrir el archivo \nX_X";
+ char firma[100] = "Att: Perez Ortiz Luis Angel\n";
+ char contenido[1000];
+ char respuesta[1000] = "Su renuncia a sido aceptada. Pronto recibira mas informacion\n";
+
+ FILE *cartaDeRenuncia;
+ cartaDeRenuncia = fopen("renuncia.txt", "w");
+
+ if (cartaDeRenuncia != NULL)
+ {
+  fputs("Por diferentes inconformidades en mi trabajo presento mi carta de renuncia.\n", cartaDeRenuncia);
+  fclose(cartaDeRenuncia);
+ }
+ else
+ {
+  puts(errorArchivo);
+ }
+ agregar(cartaDeRenuncia, firma, errorArchivo);
+ lectura(cartaDeRenuncia, contenido, errorArchivo);
+ printf("---------------------termina la carta---------------------\n");
+ agregar(cartaDeRenuncia, respuesta, errorArchivo);
+ lectura(cartaDeRenuncia, contenido, errorArchivo);
+ printf("---------------------Respuesta a la carta---------------------\n");
+
+ return 0;
+}
+
+void lectura(FILE* apuntador, char* cadena, char* error)
+{
+ apuntador = fopen("renuncia.txt", "r");
+ if (apuntador != NULL)
+ {
+  while (fgets(cadena, 1000, apuntador))
+  {
+   puts(cadena);
+  }
+  fclose(apuntador);
+ }
+ else
+ {
+  puts(error);
+ }
+}
+void agregar(FILE* apuntador, char* textoAgegado, char* error)
+{
+ apuntador = fopen("renuncia.txt", "a");
+ if (apuntador != NULL)
+ {
+  fputs(textoAgegado, apuntador);
+  fclose(apuntador);
+ }
+ else
+ {
+  puts(error);
+ }
 }
