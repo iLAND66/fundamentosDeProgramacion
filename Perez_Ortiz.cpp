@@ -3,133 +3,62 @@
 ( o.o )
  > ^ <
  */
-#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-//struc con palabra y su frecuencia
-#define MAX_LEN_PALABRA 23
-
-struct DetalleDePalabra
-{
-    char palabra[MAX_LEN_PALABRA];
-    int frecuencia;
-};
-//nodo para crear la pila con detalle de palabra y puntero a otro nodo
-struct nodo
-{
-    struct DetalleDePalabra detalleDePalabra;
-    struct nodo *siguiente;
-};
-
-void agregar(struct DetalleDePalabra detalleDePalabra);
-void agregarPalabra(char palabra[MAX_LEN_PALABRA]);
-void imprimir(void);
-
-struct nodo *superior = NULL;
 
 int main(void)
 {
     FILE *archivo;
-    archivo = fopen("entrada.txt", "w");
+    archivo = fopen("alumnos.txt", "w");
 
-    char contenido[10000];
-    char signos[] = ",./() \n";
-    char palabra1[100]={};
-    int i, contador= 0;
+    char separador[5] = ":,\n";
+    char calificaciones[20] = "";
+    char nombre[100] = "";
+    char contenido[1000];
+    int conversion;
 
-    if(archivo != NULL)
+    if (archivo != NULL)
     {
-        fputs("Estimado director Gilberto Alejandro Garcia Guerra, buenos dias.\n"
-              "El motivo de la presente es para solicitar la revalidacion y/o equivalencia de las materias que "
-              "curse en mi antigua unidad academica. Durante este semestre, realice un cambio de carrera, "
-              "pasando de la Unidad Profesional Interdisciplinaria de Energia y Movilidad (UPIEM), donde cursaba"
-              " la carrera de Ingenieria en Sistemas Energeticos y Redes Inteligentes, a la Escuela Superior de"
-              " Computo (ESCOM), en la cerrera de Ingenieria en Inteligencia Artificial.\n"
-              "Lamentablemente, al realizar el cambio, no se me otorgo la revalidacion de algunas materias "
-              "que ya habia cursado. En UPIEM curse tres semestres, mientras que en ESCOM estoy iniciando "
-              "con el primero. A continuacion, le proporciono una tabla con las materias que solicito revalidar,"
-              " junto con sus equivalentes en ESCOM.", archivo);
+        fputs("Luis Miguel: 7,6,5,3 \nPeter Parker: 9,10,10,10 \nIker Yandel: 5,5,10,10", archivo);
         fclose(archivo);
     }
     else
     {
-        printf("Archivo no encontrado X_X");
-        return 1;
+        printf("Archivo no encontrado");
     }
 
-    archivo = fopen("entrada.txt", "r");
+    archivo = fopen("alumnos.txt", "r");
     if (archivo != NULL)
     {
-        while(fgets(contenido, 10000, archivo))
+        do
         {
-
-        }
+            //printf("%s", contenido);
+            char *token = strtok(contenido, separador);
+            while (token != NULL)
+            {
+                printf("while in\n");
+                printf("token%s\n", token);
+                token = strtok(NULL, separador);
+                strcat(nombre, contenido);
+                if (strcmp(nombre, token) == 1)
+                {
+                    // strcat(nombre, token);
+                    printf("nombre%s\n", nombre);
+                }
+                else
+                {
+                    sscanf(token, "d", &conversion);
+                    printf("numeros%d", conversion);
+                }
+                // printf("nombre%s\n", nombre);
+                printf("while off\n");
+            }
+        }while(fgets(contenido, 1000, archivo));
+        printf("\n\n");
+        rewind(archivo);
     }
     else
     {
-        printf("Archivo no encontrado X_X");
-        return 1;
+        printf("Archivo no encontrado");
     }
-    char *token = strtok(contenido, signos);
-    while (token != NULL)
-    {
-        agregarPalabra(token);
-        token = strtok(NULL, signos);
-    }
-    imprimir();
 }
-
-//agregar la pila(push) agrega un struct
-void agregar(struct DetalleDePalabra detalleDePalabra)
-{
-    //reservamor memoria
-    struct nodo *nuevoNodo = static_cast<struct nodo*>(malloc(sizeof(struct nodo)));
-    //le ponemos el dato
-    nuevoNodo->detalleDePalabra = detalleDePalabra;
-    //el nuevo ndo es el superior, y su siguiente es el que era antes superior
-    nuevoNodo->siguiente = superior;
-    superior = nuevoNodo;
-}
-//insertar palabra en la pila en caso de que no exista
-void agregarPalabra(char palabra[MAX_LEN_PALABRA])
-{
-    struct nodo *temporal = superior;
-    while (temporal != NULL)
-    {
-        //comprobar si la encontramos
-        int resultadoDeComparacion = strcasecmp(temporal->detalleDePalabra.palabra, palabra);
-        //si es 0 entonces si
-        if (resultadoDeComparacion == 0)
-        {
-            //aumentar frecuencia y terminar ciclo y funcion
-            temporal->detalleDePalabra.frecuencia++;
-            return;
-        }
-        temporal = temporal->siguiente;
-    }
-    //si no encontramos nadota agregamos una nueva
-    struct DetalleDePalabra detalleDePalabra;
-    strcpy(detalleDePalabra.palabra, palabra);
-    detalleDePalabra.frecuencia = 1; //la primera vez es 1
-    agregar(detalleDePalabra);
-}
-
-//imprimir resultados del conteo
-void imprimir(void)
-{
-    char guiones[] = "--------------------";
-    printf("+%s+%s+\n", guiones, guiones);
-    printf("|%-20s|%-20s|\n", "PALABRA", "FRECUENCIA");
-    printf("+%s+%s+\n", guiones, guiones);
-
-    struct nodo *temporal = superior;
-    while (temporal != NULL)
-    {
-        printf("|%-20s|%-20d|\n", temporal->detalleDePalabra.palabra, temporal->detalleDePalabra.frecuencia);
-        temporal = temporal->siguiente;
-    }
-    printf("+%s+%s+\n", guiones, guiones);
-}
-
-

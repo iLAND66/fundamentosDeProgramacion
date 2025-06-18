@@ -83,8 +83,28 @@ char url[1000];
 	{
 		printf("Mucho ojo el sitio no es seguro");
 	}
+---------------------------------------------------------------------------------------------------
+Recursividad
+Llamar una funcion dentro de otra funcion
+Tabla de estados (contiene las variables del entorno)
+void funcionX(int a)
+{
+    int c = a-1;
+    :
+    :
+    funcionX(c);
+}
 
-
+tabla de estados
++----------+
+| |c|estado|
++----------+
+|1|5|      |
++----------+
+|2|4|      |
++----------+
+|3|3|      |
++----------+
 
 
 
