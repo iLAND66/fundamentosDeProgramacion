@@ -1188,3 +1188,141 @@ void imprimir(void)
     }
     printf("+%s+%s+\n", guiones, guiones);
 }
+
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    FILE *archivo;
+    archivo = fopen("alumnos.txt", "w");
+
+    char separador[5] = ":,\n";
+    char calificaciones[20] = "";
+    char nombre[100] = "";
+    char contenido[1000];
+    int conversion;
+
+    if (archivo != NULL)
+    {
+        fputs("Luis Miguel: 7,6,5,3 \nPeter Parker: 9,10,10,10 \nIker Yandel: 5,5,10,10", archivo);
+        fclose(archivo);
+    }
+    else
+    {
+        printf("Archivo no encontrado");
+    }
+
+    archivo = fopen("alumnos.txt", "r");
+    if (archivo != NULL)
+    {
+        do
+        {
+            //printf("%s", contenido);
+            char *token = strtok(contenido, separador);
+            while (token != NULL)
+            {
+                printf("while in\n");
+                printf("token%s\n", token);
+                token = strtok(NULL, separador);
+                strcat(nombre, contenido);
+                if (strcmp(nombre, token) == 1)
+                {
+                    // strcat(nombre, token);
+                    printf("nombre%s\n", nombre);
+                }
+                else
+                {
+                    sscanf(token, "d", &conversion);
+                    printf("numeros%d", conversion);
+                }
+                // printf("nombre%s\n", nombre);
+                printf("while off\n");
+            }
+        }while(fgets(contenido, 1000, archivo));
+        printf("\n\n");
+        rewind(archivo);
+    }
+    else
+    {
+        printf("Archivo no encontrado");
+    }
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void quitar_espacios(char *palabra, char *resultado);
+int esPalindromo(char *palabra);
+
+int main(void)
+{
+    char word[100];
+    char wSE[100];
+
+    printf("ingrese la palabra o frase:\n");
+    gets(word);
+
+    quitar_espacios(word, wSE);
+    if(esPalindromo(wSE))
+    {
+        printf("palindromo succes\n");
+    }
+    else
+    {
+        printf("palindromo succesn't\n");
+    }
+
+    return 0;
+}
+
+void quitar_espacios(char *palabra, char *resultado)
+{
+    char palabraSinEspacios[100] = " ";
+
+    int i = 0;
+
+    while (*palabra != '\0')
+    {
+        if (*palabra != ' ')
+        {
+            palabraSinEspacios[i] = *palabra;
+            i++;
+        }
+        palabra++;
+    }
+    strcpy (resultado, palabraSinEspacios);
+}
+int esPalindromo(char *palabra)
+{
+    int a = 0;
+    int b = strlen(palabra) - 1;
+    char auxA, auxB;
+    int i;
+
+    for (i = 0; i < strlen(palabra); i++)
+    {
+        auxA = palabra[a];
+        auxB = palabra[b];
+
+        if (auxA >= 65 && auxA <= 90)
+        {
+            auxA += 32;
+        }
+        if (auxB >= 65 && auxB <= 90)
+        {
+            auxB += 32;
+        }
+        if (auxA == auxB)
+        {
+            a++;
+            b--;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
