@@ -68,7 +68,7 @@ int main(void)\
         printf("Archivo no encontrado X_X\n");
         return 1;
     }
-    freopen("salida.txt", "a+", stdout);
+    freopen("salida.txt", "w", stdout);
     char *token = strtok(contenido, signos);
     while (token != NULL)
     {
